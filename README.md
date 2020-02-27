@@ -2,6 +2,8 @@
 
 ## Summary
 
+This project aims to build an R and Python package that elegently performs data pre-processing in a fast and easy manner.With four separate functions that will come along with the b4prep package, users will have greater flexibility in handling many different types of datasets in the wild or those collected by them. With b4prep package, users will be able to smoothly pre-process their data and have it ready for the machine learning model of their choice.
+
 ## Functions
 ### Handling Missing Values
 - This function will take in a dataframe and handle any missing values by either deleting the row, filling in the value with the average, or filling in the value with the last observation (the user will specify which method to use in the function argument).
