@@ -2,4 +2,5 @@
 
 export(ForwardSelection)
 export(feature_splitter)
+export(fit_and_report)
 export(missing_val)
