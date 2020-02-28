@@ -33,4 +33,4 @@ for the machine learning model of their choice.
 
 ## R Ecosystem
 
-`caret` is probabily the most widely used packaged for supervised learning problems in R. Although the library provides various model fitting and preprocessing features, programmers end up with writing the same line of code over and over again. Our `rb4model` library provides a simple solution to this pain point: wrapper functions of `caret` and other primary libraries used for supervised learning to reduce lines of code and promote efficiency.
+`caret` is probabily the most widely used package for supervised learning problems in R. Although the library provides various model fitting and preprocessing features, programmers end up with writing the same line of code over and over again. Our `rb4model` library provides a simple solution to this pain point: wrapper functions of `caret` and other primary libraries used for supervised learning to reduce lines of code and promote efficiency.
