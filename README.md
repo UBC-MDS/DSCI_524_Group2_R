@@ -5,11 +5,11 @@
 
 ## Summary
 
-This project aims to build an R and Python package that elegently
+This project aims to build an R package that elegently
 performs data pre-processing in a fast and easy manner. With four
-separate functions that will come along with the b4model package, users
+separate functions that will come along with the rb4model package, users
 will have greater flexibility in handling many different types of
-datasets in the wild or those collected by them. With b4model package,
+datasets in the wild or those collected by them. With rb4model package,
 users will be able to smoothly pre-process their data and have it ready
 for the machine learning model of their choice.
 
