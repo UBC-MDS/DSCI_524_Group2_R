@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2020 Andrea Lee
+Copyright (c) 2020 Sakariya Aynashe, Andrea Lee, Jaekun Lee, Xinwen Wang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
