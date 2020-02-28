@@ -5,45 +5,32 @@
 
 ## Summary
 
-This project aims to build an R package that elegently
+This project aims to build an R package that elegantly
 performs data pre-processing in a fast and easy manner. With four
 separate functions that will come along with the rb4model package, users
 will have greater flexibility in handling many different types of
-datasets in the wild or those collected by them. With rb4model package,
+datasets in the wild or those collected by them. With the rb4model package,
 users will be able to smoothly pre-process their data and have it ready
 for the machine learning model of their choice.
 
 ## Functions
 
-### Handling Missing Values
+`missing_val`
+- This function will take in a dataframe and handle any missing values by either deleting the row, filling in the value with the average, or filling in the value with the last observation (the user will specify which method to use in the function argument).
+- This function will return a dataframe without missing values.
 
-  - This function will take in a dataframe and handle any missing values
-    by either deleting the row, filling in the value with the average,
-    or filling in the value with the last observation (the user will
-    specify which method to use in the function argument).
-  - This function will return a dataframe without missing values.
+`feature_splitter`
+- This function will take in a dataframe and split the data into numerical and categorical features.
+- This function will return two lists, one list containing the names of the numerical features and one list containing the names of the categorical features.
 
-### Split and Scale
+`fit_and_report`
+- This function will take in data, fit a model, and calculate its training and validation scores.
+- This function will return the model's training and validation scores.
 
-  - This function will take in a dataframe and split the data into
-    numerical and categorical features.
-  - This function will return two lists, one list containing the names
-    of the numerical features and one list containing the names of the
-    categorical features.
-
-### Fit and Report
-
-  - This function will take in a dataframe, fit a model, and calculate
-    its training and testing scores.
-  - This function will return the model’s training and testing scores.
-
-### Forward Feature Selection
-
-  - This function will take in a dataframe, fit a model, and perform
-    forward feature selection.
-  - This function will return a dataframe with only the selected
-    features.
+`ForwardSelection`
+- This function will take in data, fit a model, and perform forward feature selection.
+- This function will return a dataframe with only the selected features.
 
 ## R Ecosystem
 
-`caret` is probabily the most widely used packaged for supervised learning problems in R. Although the library provides various model fitting and preprocessing features, programmers end up with writing the same line of code over and over again. Our `rb4model` library provides a simple solution to this pain point: A wrapper functions of `caret` and other primary libraries used for supervised learning to reduce lines of code and promote efficiency.
+`caret` is probabily the most widely used packaged for supervised learning problems in R. Although the library provides various model fitting and preprocessing features, programmers end up with writing the same line of code over and over again. Our `rb4model` library provides a simple solution to this pain point: wrapper functions of `caret` and other primary libraries used for supervised learning to reduce lines of code and promote efficiency.
