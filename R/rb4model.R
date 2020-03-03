@@ -3,33 +3,36 @@
 #' Replaces or deletes missing values in a dataframe
 #'
 #' @param df dataframe with missing values
-#' @param method string ('delete' deletes row with missing values, 'avg' replaces missing value with the average, 'last' replaces missing value with the last observation)
+#' @param method string ('delete' removes rows with missing values, 'mean' replaces missing values with averages, 'regression' replaces missings value with fitted values)
 #'
 #' @return dataframe without missing values
 #'
 #' @examples
-#' missing_val(df, 'last')
+#' missing_val(df, 'mean')
 #'
 #' @export
 missing_val <- function(df, method) {
-  # INSERT CODE HERE
-}
+    
+  if(!is.data.frame(df)) {
+    stop("Can only handle missing values in dataframes")
+  }
+    
+  if(!method %in% c('delete', 'mean', 'regression')) {
+    stop("Valid methods only include 'delete', 'mean', and 'regression'")
+  }
+    
+  if(method=='delete'){
+    df[complete.cases(df),]
+  }
+    
+  else if(method=='mean'){
+    complete(mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
+  }
 
-
-#' feature_splitter function Documentation
-#' Splits dataset column names into a tuple of categorical and numerical lists
-#'
-#' @param x
-#' @return a tuple
-#'
-#' @examples
-#' feature_splitter(data)
-#' ([categorical:],[numerical: ])
-#'
-#' @export
-feature_splitter<-function(x){
-  #TODO
-
+  else if(method=='regression'){
+    complete(mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
+  }
+      
 }
 
 
