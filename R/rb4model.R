@@ -11,41 +11,42 @@
 #' missing_val(df, 'mean')
 #'
 #' @export
-test_missing_val <- function() {
+missing_val <- function(df, method) {
 
-  test_that('regression imputation should replace missing value with fitted value', {
-    expect_equal(missing_val(airquality, 'regression')$Ozone[5], -11.7682028889364, tolerance=1e-5)
-  })
+  # tests
     
-  test_that('mean imputation should replace missing value with average', {
-    expect_equal(missing_val(airquality, 'mean')$Ozone[5], mean(airquality$Ozone, na.rm=TRUE))
-  })
+  if(!is.data.frame(df)) {
+    stop("Can only handle missing values in dataframes")
+  }
     
-  test_that('listwise deletion should remove rows with missing values', {
-    expect_equal(nrow(missing_val(airquality, 'delete')), 111)
-  })
+  if(!method %in% c('delete', 'mean', 'regression')) {
+    stop("Valid methods only include 'delete', 'mean', and 'regression'")
+  }
     
-  test_that('should throw error', {
-    expect_error(missing_val('a', 'delete'), 'Can only handle missing values in dataframes')
-  })
+  if (dim(df)[2]==0 | dim(df)[1]==0) {
+    stop("Dataframe cannot be empty") # edge case
+  }
     
-  test_that('should throw error', {
-    expect_error(missing_val(airquality, 'del'), "Valid methods only include 'delete', 'mean', and 'regression")
-  })
+  for (i in 1:ncol(df)){
+    if (all(is.na(df[i]))){
+      stop("Dataframe cannot have empty columns") # edge case
+    }
+  }
+
+  # function
     
-  airquality_empty <- airquality
-  airquality_empty <- NULL
-  airquality_empty <- data.frame(airquality_empty)
-  test_that('should throw error', {
-    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot be empty")
-  })
+  if(method=='delete'){
+    df[complete.cases(df),]
+  }
     
-  airquality_empty <- airquality
-  airquality_empty$'empty' <- NA
-  test_that('should throw error', {
-    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot have empty columns")
-  })
-    
+  else if(method=='mean'){
+    complete(mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
+  }
+
+  else if(method=='regression'){
+    complete(mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
+  }
+      
 }
 
 
