@@ -1,3 +1,5 @@
+library(mice)
+
 #' Handles missing values
 #'
 #' Replaces or deletes missing values in a dataframe
