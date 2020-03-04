@@ -1,5 +1,6 @@
 library(testthat)
 library(rb4model)
+library(mice)
 
 test_missing_val <- function() {
 
@@ -15,7 +16,27 @@ test_missing_val <- function() {
     expect_equal(nrow(missing_val(airquality, 'delete')), 111)
   })
     
-      
+  test_that('should throw error', {
+    expect_error(missing_val('a', 'delete'), 'Can only handle missing values in dataframes')
+  })
+    
+  test_that('should throw error', {
+    expect_error(missing_val(airquality, 'del'), "Valid methods only include 'delete', 'mean', and 'regression")
+  })
+    
+  airquality_empty <- airquality
+  airquality_empty <- NULL
+  airquality_empty <- data.frame(airquality_empty)
+  test_that('should throw error', {
+    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot be empty")
+  })
+    
+  airquality_empty <- airquality
+  airquality_empty$'empty' <- NA
+  test_that('should throw error', {
+    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot have empty columns")
+  })
+    
 }
 
 test_check("rb4model")
