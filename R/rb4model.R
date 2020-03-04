@@ -1,5 +1,3 @@
-library(mice)
-
 #' Handles missing values
 #'
 #' Replaces or deletes missing values in a dataframe
@@ -10,25 +8,25 @@ library(mice)
 #' @return dataframe without missing values
 #'
 #' @examples
-#' missing_val(df, 'mean')
+#' missing_val(mtcars, 'mean')
 #'
 #' @export
 missing_val <- function(df, method) {
 
   # tests
-    
+
   if(!is.data.frame(df)) {
     stop("Can only handle missing values in dataframes")
   }
-    
+
   if(!method %in% c('delete', 'mean', 'regression')) {
     stop("Valid methods only include 'delete', 'mean', and 'regression'")
   }
-    
+
   if (dim(df)[2]==0 | dim(df)[1]==0) {
     stop("Dataframe cannot be empty") # edge case
   }
-    
+
   for (i in 1:ncol(df)){
     if (all(is.na(df[i]))){
       stop("Dataframe cannot have empty columns") # edge case
@@ -36,21 +34,20 @@ missing_val <- function(df, method) {
   }
 
   # function
-    
+
   if(method=='delete'){
-    df[complete.cases(df),]
+    df[stats::complete.cases(df),]
   }
-    
+
   else if(method=='mean'){
-    complete(mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
+    mice::complete(mice::mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
   }
 
   else if(method=='regression'){
-    complete(mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
+    mice::complete(mice::mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
   }
-      
-}
 
+}
 
 #' feature_splitter function Documentation
 #' Splits dataset column names into a tuple of categorical and numerical lists
