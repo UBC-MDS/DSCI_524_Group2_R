@@ -49,10 +49,33 @@ feature_splitter<-function(x){
 #' @examples
 #'
 #' @export
-fit_and_report <- function(model, X, y, Xv, yv, m_type = 'regression'){
+fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
+  try(if (class(m_type) !='character')
+    stop('The m_type argument should be either regression or classificaition'))
+  
+  try(if(dim(X)[1] != length(y))
+    stop('The length of X and y should be the same'))
+  
+  try(if(dim(Xv)[1]!= length(yv))
+    stop('The length of Xv and yv should be the same'))
+  
+  
+  if (startsWith(tolower(m_type), 'regress')){
+    metric <- 'RMSE'
+    model <- train(X, y, method=method, metric=metric)
+    testPred <- predict(model, Xv)
+    test_acc <- postResample(testPred, yv)
+    errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
+  }
+  if (startsWith(tolower(m_type), 'classif')){
+    metric <-'Accuracy'
+    model<- train(X, y, method=method, metric=metric)
+    testPred <- predict(model, Xv)
+    test_acc <- postResample(testPred, yv)
+    errors <- c(1 - model$results$Accuracy, 1 -test_acc[1]) 
+  }
+  return(errors)
 }
-
-
 # Title     : Feature Selection
 # Objective : Implement forward feature selection and return data with selected features
 # Created by: nowgeun
