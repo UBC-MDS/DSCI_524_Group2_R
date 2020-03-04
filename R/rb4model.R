@@ -11,28 +11,58 @@
 #' missing_val(df, 'mean')
 #'
 #' @export
-missing_val <- function(df, method) {
-    
-  if(!is.data.frame(df)) {
-    stop("Can only handle missing values in dataframes")
-  }
-    
-  if(!method %in% c('delete', 'mean', 'regression')) {
-    stop("Valid methods only include 'delete', 'mean', and 'regression'")
-  }
-    
-  if(method=='delete'){
-    df[complete.cases(df),]
-  }
-    
-  else if(method=='mean'){
-    complete(mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
-  }
+test_missing_val <- function() {
 
-  else if(method=='regression'){
-    complete(mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
-  }
-      
+  test_that('regression imputation should replace missing value with fitted value', {
+    expect_equal(missing_val(airquality, 'regression')$Ozone[5], -11.7682028889364, tolerance=1e-5)
+  })
+    
+  test_that('mean imputation should replace missing value with average', {
+    expect_equal(missing_val(airquality, 'mean')$Ozone[5], mean(airquality$Ozone, na.rm=TRUE))
+  })
+    
+  test_that('listwise deletion should remove rows with missing values', {
+    expect_equal(nrow(missing_val(airquality, 'delete')), 111)
+  })
+    
+  test_that('should throw error', {
+    expect_error(missing_val('a', 'delete'), 'Can only handle missing values in dataframes')
+  })
+    
+  test_that('should throw error', {
+    expect_error(missing_val(airquality, 'del'), "Valid methods only include 'delete', 'mean', and 'regression")
+  })
+    
+  airquality_empty <- airquality
+  airquality_empty <- NULL
+  airquality_empty <- data.frame(airquality_empty)
+  test_that('should throw error', {
+    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot be empty")
+  })
+    
+  airquality_empty <- airquality
+  airquality_empty$'empty' <- NA
+  test_that('should throw error', {
+    expect_error(missing_val(airquality_empty, 'delete'), "Dataframe cannot have empty columns")
+  })
+    
+}
+
+
+#' feature_splitter function Documentation
+#' Splits dataset column names into a tuple of categorical and numerical lists
+#'
+#' @param x
+#' @return a tuple
+#'
+#' @examples
+#' feature_splitter(data)
+#' ([categorical:],[numerical: ])
+#'
+#' @export
+feature_splitter<-function(x){
+  #TODO
+
 }
 
 
