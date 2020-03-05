@@ -7,17 +7,17 @@
 missing_val(df, method)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{dataframe with missing values}
 
-\item{method}{string (''delete' deletes row with missing values, 'avg' replaces missing value with the average, 'last' replaces missing value with the last observation)}
+\item{method}{string ('delete' removes rows with missing values, 'mean' replaces missing values with averages, 'regression' replaces missings value with fitted values)}
 }
 \value{
-dataframe
+dataframe without missing values
 }
 \description{
 Replaces or deletes missing values in a dataframe
 }
 \examples{
-missing_val(df, 'last')
+missing_val(mtcars, 'mean')
 
 }

@@ -24,4 +24,9 @@ Imports:
     testthat,
     caret,
     datasets,
-    mlbench
+    mlbench,
+    mice,
+    stats
+Suggests: 
+    testthat (>= 2.1.0)
+    
