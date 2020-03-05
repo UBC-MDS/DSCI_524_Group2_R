@@ -65,7 +65,7 @@ feature_splitter<-function(data){
     if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
 
     #Analysis data types of features in the data frame
-    d_types <- sapply(mydata, class)
+    d_types <- sapply(data, class)
 
     #Extracting categorical features from the data
     categorical <- c(names(d_types[d_types == 'factor']))
