@@ -4,11 +4,9 @@
 \alias{fit_and_report}
 \title{Fit and report}
 \usage{
-fit_and_report(model, X, y, Xv, yv, m_type = "regression")
+fit_and_report(X, y, Xv, yv, method, m_type = "regression")
 }
 \arguments{
-\item{model}{A machine learning model, can either be classification or regression}
-
 \item{X}{The features of the training set}
 
 \item{y}{The target of the training set}
@@ -18,6 +16,8 @@ fit_and_report(model, X, y, Xv, yv, m_type = "regression")
 \item{yv}{The target of the validation set}
 
 \item{m_type}{The type for calculating error (default = 'regression')}
+
+\item{model}{A machine learning model, can either be classification or regression}
 }
 \value{
 an array of train and validation error

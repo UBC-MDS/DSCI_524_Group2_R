@@ -1,3 +1,7 @@
+require(testthat)
+require(datasets)
+require(mlbench)
+require(caret)
 
 test_fit_and_report <- function(){
   data <- data(PimaIndiansDiabetes)
