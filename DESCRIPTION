@@ -23,11 +23,11 @@ RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0)
 Imports: 
+    mice,
+    stats,
     testthat,
     caret,
     datasets,
     mlbench,
-    mice,
-    stats,
     caret,
     randomForest

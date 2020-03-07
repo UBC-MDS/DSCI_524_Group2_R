@@ -52,12 +52,11 @@ missing_val <- function(df, method) {
 #' feature_splitter function Documentation
 #' Splits dataset column names into a tuple of categorical and numerical lists
 #'
-#' @param x
+#' @param data dataframe
 #' @return a tuple
 #'
 #' @examples
-#' feature_splitter(data)
-#' ([categorical:],[numerical: ])
+#' feature_splitter(mtcars)
 #'
 #' @export
 feature_splitter<-function(data){
@@ -72,9 +71,9 @@ feature_splitter<-function(data){
 
     # Extracting numerical features from the data
     numerical <- c(names(d_types[d_types != 'factor']))
-    
+
     if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
-    
+
     return (list(categorical,numerical))
 }
 
@@ -85,7 +84,7 @@ feature_splitter<-function(data){
 
 #' Implement forward feature selection and return data with selected features
 #' Uses root mean squared error for regression and accuracy for classification
-#' 
+#'
 #' @param my_mod model name in string (must be in caret::modelLookup())
 #' @param feature training dataset with features
 #' @param label training dataset with labels.
@@ -96,7 +95,7 @@ feature_splitter<-function(data){
 #'
 #' @return The dataset with selected features.
 #' @examples
-#' 
+#'
 #' y <- iris$Species
 #' x <- iris[c(1,2,3,4)]
 #' ffs <- ForwardSelection(feature=x, label=y, my_mod="rf")
@@ -104,12 +103,12 @@ feature_splitter<-function(data){
 #'
 #' @export
 ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="classification", cv=3){
-  
+
   # define maximum amount of features
   if(is.na(max_f)){
     max_f <- dim(feature)[2]
   }
-  
+
   # test
   if(!all.equal(min_f, as.integer(min_f))){
     stop("minimum number of features should be an integer")
@@ -138,7 +137,7 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
   } else {
   metric = "Accuracy"
   }
-  
+
   # create empty vector
   ftr <- c()
   # total list of features
@@ -146,24 +145,24 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
   # Initialize error
   best_score <- -Inf
 
-  
+
   while(length(ftr) < max_f){
     # remove already selected features
     unselected <- setdiff(tot, ftr)
     candidate <- NULL
-    
+
     for(f in unselected){
       temp_f <- c(ftr,f)
       print(temp_f)
-      
+
       train_control <- caret::trainControl(method="cv", number=cv)
       model <- caret::train(x=feature[,temp_f, drop=FALSE], y=label, trControl = train_control, method=my_mod, metric=metric)
-      
+
       # score
       eval_score <- as.double(model$results[metric])
       eval_score <- -eval_score
       print(eval_score)
-      
+
       # update score
       if(eval_score > best_score){
         best_score <- eval_score
@@ -171,18 +170,18 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
         print("updated")
       }
     }
-    
+
     if(!is.null(candidate)){
       ftr <- c(ftr,candidate)
     } else {
       break
     }
-    
+
   }
   return(ftr)
 }
-  
-  
+
+
 
 
 
@@ -206,14 +205,14 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
   try(if (class(m_type) !='character')
     stop('The m_type argument should be either regression or classificaition'))
-  
+
   try(if(dim(X)[1] != length(y))
     stop('The length of X and y should be the same'))
-  
+
   try(if(dim(Xv)[1]!= length(yv))
     stop('The length of Xv and yv should be the same'))
-  
-  
+
+
   if (startsWith(tolower(m_type), 'regress')){
     metric <- 'RMSE'
     model <- train(X, y, method=method, metric=metric)
@@ -226,7 +225,7 @@ fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
     model<- train(X, y, method=method, metric=metric)
     testPred <- predict(model, Xv)
     test_acc <- postResample(testPred, yv)
-    errors <- c(1 - model$results$Accuracy, 1 -test_acc[1]) 
+    errors <- c(1 - model$results$Accuracy, 1 -test_acc[1])
   }
   return(errors)
 }
