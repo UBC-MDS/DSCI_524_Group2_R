@@ -5,7 +5,7 @@
 \title{feature_splitter function Documentation
 Splits dataset column names into a tuple of categorical and numerical lists}
 \usage{
-feature_splitter(x)
+feature_splitter(data)
 }
 \value{
 a tuple

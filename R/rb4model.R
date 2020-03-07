@@ -80,6 +80,113 @@ feature_splitter<-function(data){
 
 
 
+
+# Feature Selection
+
+#' Implement forward feature selection and return data with selected features
+#' Uses root mean squared error for regression and accuracy for classification
+#' 
+#' @param my_mod model name in string (must be in caret::modelLookup())
+#' @param feature training dataset with features
+#' @param label training dataset with labels.
+#' @param min_f minimum amount of features to select
+#' @param max_f maximum amount of features to select
+#' @param type problem type. (Must be 'regression' or 'classification')
+#' @param cv number of folds for cross validation
+#'
+#' @return The dataset with selected features.
+#' @examples
+#' 
+#' y <- iris$Species
+#' x <- iris[c(1,2,3,4)]
+#' ffs <- ForwardSelection(feature=x, label=y, my_mod="rf")
+#' print(x[ffs])
+#'
+#' @export
+ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="classification", cv=3){
+  
+  # define maximum amount of features
+  if(is.na(max_f)){
+    max_f <- dim(feature)[2]
+  }
+  
+  # test
+  if(!all.equal(min_f, as.integer(min_f))){
+    stop("minimum number of features should be an integer")
+  }
+  if(!all.equal(max_f, as.integer(max_f))){
+    stop("maximum number of features should be an integer")
+  }
+  if(!type %in% c("regression","classification")){
+    stop("problem should be 'regression' or 'classification'")
+  }
+  if(!all.equal(cv, as.integer(cv))){
+    stop("number of folds for cross validation should be an integer")
+  }
+  if(!my_mod %in% names(caret::getModelInfo())){
+    stop("your model should be supported by caret")
+  }
+  # if(!is.double(label)){
+  #   stop("label should be a vector of double")
+  # }
+  if(!is.list(feature)){
+    stop("feature should be a list")
+  }
+  # define the problem & set the metric/scoring method
+  if(type == "regression"){
+  metric = "RMSE"
+  } else {
+  metric = "Accuracy"
+  }
+  
+  # create empty vector
+  ftr <- c()
+  # total list of features
+  tot <- seq(length(feature))
+  # Initialize error
+  best_score <- -Inf
+
+  
+  while(length(ftr) < max_f){
+    # remove already selected features
+    unselected <- setdiff(tot, ftr)
+    candidate <- NULL
+    
+    for(f in unselected){
+      temp_f <- c(ftr,f)
+      print(temp_f)
+      
+      train_control <- caret::trainControl(method="cv", number=cv)
+      model <- caret::train(x=feature[,temp_f, drop=FALSE], y=label, trControl = train_control, method=my_mod, metric=metric)
+      
+      # score
+      eval_score <- as.double(model$results[metric])
+      eval_score <- -eval_score
+      print(eval_score)
+      
+      # update score
+      if(eval_score > best_score){
+        best_score <- eval_score
+        candidate <- f
+        print("updated")
+      }
+    }
+    
+    if(!is.null(candidate)){
+      ftr <- c(ftr,candidate)
+    } else {
+      break
+    }
+    
+  }
+  return(ftr)
+}
+  
+  
+
+
+
+
 #' Fit and report
 #'
 #' @param model A machine learning model, can either be classification or regression
@@ -100,25 +207,4 @@ fit_and_report <- function(model, X, y, Xv, yv, m_type = 'regression'){
 }
 
 
-# Title     : Feature Selection
-# Objective : Implement forward feature selection and return data with selected features
-# Created by: nowgeun
-# Created on: 2020-02-26
 
-#' Implement forward feature selection and return data with selected features
-#'
-#' @param X training dataset with features
-#' @param y training dataset with labels.
-#' @param min_feat minimum amount of features to select
-#' @param max_feat maximum amount of features to select
-#'
-#'
-#' @return The dataset with selected features.
-#' @examples
-#' add(1, 1)
-#' add(10, 1)
-#'
-#' @export
-ForwardSelection <- function(X,y,min_feat=1, max_feat=30){
-
-}
