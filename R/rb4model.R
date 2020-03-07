@@ -53,10 +53,8 @@ fit_and_report <- function(model, X, y, Xv, yv, m_type = 'regression'){
 }
 
 
-# Title     : Feature Selection
-# Objective : Implement forward feature selection and return data with selected features
-# Created by: nowgeun
-# Created on: 2020-02-26
+
+# Feature Selection
 
 #' Implement forward feature selection and return data with selected features
 #'
@@ -72,6 +70,46 @@ fit_and_report <- function(model, X, y, Xv, yv, m_type = 'regression'){
 #' add(10, 1)
 #'
 #' @export
-ForwardSelection <- function(X,y,min_feat=1, max_feat=30){
-
+ForwardSelection <- function(model, feature, label, min_f=1, max_f=NA, cv=3, type="regression"){
+  
+  # define maximum amount of features
+  if(is.na(a)){
+    max_f <- dim(feature)[2]
+  }
+  
+  # test
+  
+  # create empty vector
+  ftr <- c()
+  # total number of features
+  tot <- seq(dim(feature))
+  # total list of features
+  total_features <- seq(length(feature))
+  # Initialize error
+  best_score <- -Inf
+  
+  while(length(ftr) < max_f){
+    # remove already selected features
+    unselected <- setdiff(tot, ftr)
+    candidate <- c()
+    
+    for(feature in unselected){
+      # fit model
+      ...
+      ...
+      ...
+      if(eval_score > best_score){
+        best_score <- eval_score
+        candidate <- feature
+      }
+      
+    if(!is.na(candidate)){
+        ftr <- c(ftr,candidate)
+    } else {
+      break
+    }
+    
+    
+  }
+  
 }
