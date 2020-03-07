@@ -2,27 +2,46 @@
 % Please edit documentation in R/rb4model.R
 \name{ForwardSelection}
 \alias{ForwardSelection}
-\title{Implement forward feature selection and return data with selected features}
+\title{Implement forward feature selection and return data with selected features
+Uses root mean squared error for regression and accuracy for classification}
 \usage{
-ForwardSelection(X, y, min_feat = 1, max_feat = 30)
+ForwardSelection(
+  my_mod,
+  feature,
+  label,
+  min_f = 1,
+  max_f = NA,
+  type = "classification",
+  cv = 3
+)
 }
 \arguments{
-\item{X}{training dataset with features}
+\item{feature}{training dataset with features}
 
-\item{y}{training dataset with labels.}
+\item{label}{training dataset with labels.}
 
-\item{min_feat}{minimum amount of features to select}
+\item{min_f}{minimum amount of features to select}
 
-\item{max_feat}{maximum amount of features to select}
+\item{max_f}{maximum amount of features to select}
+
+\item{type}{problem type. (Must be 'regression' or 'classification')}
+
+\item{cv}{number of folds for cross validation}
+
+\item{model}{model name in string (must be in caret::modelLookup())}
 }
 \value{
 The dataset with selected features.
 }
 \description{
 Implement forward feature selection and return data with selected features
+Uses root mean squared error for regression and accuracy for classification
 }
 \examples{
-add(1, 1)
-add(10, 1)
+
+y <- iris$Species
+x <- iris[c(1,2,3,4)]
+ffs <- ForwardSelection(feature=x, label=y, my_mod="rf")
+print(x[ffs])
 
 }
