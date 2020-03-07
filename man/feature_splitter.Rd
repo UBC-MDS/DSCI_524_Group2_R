@@ -7,6 +7,9 @@ Splits dataset column names into a tuple of categorical and numerical lists}
 \usage{
 feature_splitter(data)
 }
+\arguments{
+\item{data}{dataframe}
+}
 \value{
 a tuple
 }
@@ -15,7 +18,6 @@ feature_splitter function Documentation
 Splits dataset column names into a tuple of categorical and numerical lists
 }
 \examples{
-feature_splitter(data)
-([categorical:],[numerical: ])
+feature_splitter(mtcars)
 
 }
