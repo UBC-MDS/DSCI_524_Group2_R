@@ -15,3 +15,5 @@ test_feature_splitter <- function() {
   test_that("Test that total number of categorical and numerical features is same as column names in the data frame",{
     expect_equal(sort(unlist(feature_splitter(data))),sort(colnames(data)))})
 }
+
+test_feature_splitter()
