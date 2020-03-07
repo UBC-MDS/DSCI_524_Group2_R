@@ -153,7 +153,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 
     for(f in unselected){
       temp_f <- c(ftr,f)
-      print(temp_f)
 
       train_control <- caret::trainControl(method="cv", number=cv)
       model <- caret::train(x=feature[,temp_f, drop=FALSE], y=label, trControl = train_control, method=my_mod, metric=metric)
@@ -161,13 +160,11 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
       # score
       eval_score <- as.double(model$results[metric])
       eval_score <- -eval_score
-      print(eval_score)
 
       # update score
       if(eval_score > best_score){
         best_score <- eval_score
         candidate <- f
-        print("updated")
       }
     }
 

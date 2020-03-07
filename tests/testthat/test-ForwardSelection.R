@@ -14,10 +14,6 @@ test_ForwardSelection<- function(){
 
   # Test
 
-  test_that('output should be a vector of double', {
-    expect_true(typeof(selected)=="double")
-  })
-
   test_that('length of selected features should not be greater than the total number of features', {
     expect_less_than(length(selected), length(x))
   })
