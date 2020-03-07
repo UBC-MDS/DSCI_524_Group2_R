@@ -1,9 +1,29 @@
-test_ForwardSelection<- function() {
-    
+test_ForwardSelection<- function(){
 
-  test_that('output should be a vector', {
-    expect_equal(missing_val(airquality, 'regression')$Ozone[5], -11.7682028889364, tolerance=1e-5)
+  # Setting
+  y <- mtcars$mpg
+  x <- mtcars[,-1]
+  selected <- ForwardSelection(my_mod="lm", feature=x, label=y, type="regression", cv=5)
+
+  train_control <- caret::trainControl(method="cv", number=5)
+  ffs_model <- caret::train(x=x[selected], y=y, trControl = train_control, method ="lm", metric="RMSE")
+  control_model <- caret::train(x=x, y=y, trControl = train_control, method ="lm", metric="RMSE")
+
+  ffs_score <- as.double(ffs_model$results["RMSE"])
+  control_score <- as.double(control_model$results["RMSE"])
+
+  # Test
+
+  test_that('output should be a vector of double', {
+    expect_true(typeof(selected)=="double")
   })
 
+  test_that('length of selected features should not be greater than the total number of features', {
+    expect_less_than(length(selected), length(x))
+  })
 
+  test_that('forward selected features should have the best score', {
+    expect_less_than(ffs_score, control_score)
+  })
 }
+

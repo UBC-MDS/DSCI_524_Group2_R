@@ -86,7 +86,7 @@ feature_splitter<-function(data){
 #' Implement forward feature selection and return data with selected features
 #' Uses root mean squared error for regression and accuracy for classification
 #' 
-#' @param model model name in string (must be in caret::modelLookup())
+#' @param my_mod model name in string (must be in caret::modelLookup())
 #' @param feature training dataset with features
 #' @param label training dataset with labels.
 #' @param min_f minimum amount of features to select
@@ -183,8 +183,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 }
   
   
-  
-
 
 
 

@@ -16,6 +16,8 @@ ForwardSelection(
 )
 }
 \arguments{
+\item{my_mod}{model name in string (must be in caret::modelLookup())}
+
 \item{feature}{training dataset with features}
 
 \item{label}{training dataset with labels.}
@@ -27,8 +29,6 @@ ForwardSelection(
 \item{type}{problem type. (Must be 'regression' or 'classification')}
 
 \item{cv}{number of folds for cross validation}
-
-\item{model}{model name in string (must be in caret::modelLookup())}
 }
 \value{
 The dataset with selected features.
