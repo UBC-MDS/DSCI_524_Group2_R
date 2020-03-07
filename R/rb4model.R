@@ -154,7 +154,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
     
     for(f in unselected){
       temp_f <- c(ftr,f)
-      print(temp_f)
       
       train_control <- caret::trainControl(method="cv", number=cv)
       model <- caret::train(x=feature[,temp_f, drop=FALSE], y=label, trControl = train_control, method=my_mod, metric=metric)
@@ -162,13 +161,11 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
       # score
       eval_score <- as.double(model$results[metric])
       eval_score <- -eval_score
-      print(eval_score)
       
       # update score
       if(eval_score > best_score){
         best_score <- eval_score
         candidate <- f
-        print("updated")
       }
     }
     
@@ -203,8 +200,31 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #' @examples
 #'
 #' @export
-fit_and_report <- function(model, X, y, Xv, yv, m_type = 'regression'){
+fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
+  try(if (class(m_type) !='character')
+    stop('The m_type argument should be either regression or classificaition'))
+  
+  try(if(dim(X)[1] != length(y))
+    stop('The length of X and y should be the same'))
+  
+  try(if(dim(Xv)[1]!= length(yv))
+    stop('The length of Xv and yv should be the same'))
+  
+  
+  if (startsWith(tolower(m_type), 'regress')){
+    metric <- 'RMSE'
+    model <- train(X, y, method=method, metric=metric)
+    testPred <- predict(model, Xv)
+    test_acc <- postResample(testPred, yv)
+    errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
+  }
+  if (startsWith(tolower(m_type), 'classif')){
+    metric <-'Accuracy'
+    model<- train(X, y, method=method, metric=metric)
+    testPred <- predict(model, Xv)
+    test_acc <- postResample(testPred, yv)
+    errors <- c(1 - model$results$Accuracy, 1 -test_acc[1]) 
+  }
+  return(errors)
 }
-
-
 
