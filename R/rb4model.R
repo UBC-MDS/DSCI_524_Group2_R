@@ -3,18 +3,51 @@
 #' Replaces or deletes missing values in a dataframe
 #'
 #' @param df dataframe with missing values
-#' @param method string ('delete' deletes row with missing values, 'avg' replaces missing value with the average, 'last' replaces missing value with the last observation)
+#' @param method string ('delete' removes rows with missing values, 'mean' replaces missing values with averages, 'regression' replaces missings value with fitted values)
 #'
 #' @return dataframe without missing values
 #'
 #' @examples
-#' missing_val(df, 'last')
+#' missing_val(mtcars, 'mean')
 #'
 #' @export
 missing_val <- function(df, method) {
-  # INSERT CODE HERE
-}
 
+  # tests
+
+  if(!is.data.frame(df)) {
+    stop("Can only handle missing values in dataframes")
+  }
+
+  if(!method %in% c('delete', 'mean', 'regression')) {
+    stop("Valid methods only include 'delete', 'mean', and 'regression'")
+  }
+
+  if (dim(df)[2]==0 | dim(df)[1]==0) {
+    stop("Dataframe cannot be empty") # edge case
+  }
+
+  for (i in 1:ncol(df)){
+    if (all(is.na(df[i]))){
+      stop("Dataframe cannot have empty columns") # edge case
+    }
+  }
+
+  # function
+
+  if(method=='delete'){
+    df[stats::complete.cases(df),]
+  }
+
+  else if(method=='mean'){
+    mice::complete(mice::mice(df, m = 1, method = "mean", maxit = 1, printFlag = FALSE))
+  }
+
+  else if(method=='regression'){
+    mice::complete(mice::mice(df, method = "norm.predict", seed = 1, m = 1, print = FALSE))
+  }
+
+}
 
 #' feature_splitter function Documentation
 #' Splits dataset column names into a tuple of categorical and numerical lists
@@ -27,10 +60,24 @@ missing_val <- function(df, method) {
 #' ([categorical:],[numerical: ])
 #'
 #' @export
-feature_splitter<-function(x){
-  #TODO
+feature_splitter<-function(data){
+    # Checking if input data of the format of data frame
+    if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
 
+    #Analysis data types of features in the data frame
+    d_types <- sapply(data, class)
+
+    #Extracting categorical features from the data
+    categorical <- c(names(d_types[d_types == 'factor']))
+
+    # Extracting numerical features from the data
+    numerical <- c(names(d_types[d_types != 'factor']))
+    
+    if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
+    
+    return (list(categorical,numerical))
 }
+
 
 
 #' Fit and report
