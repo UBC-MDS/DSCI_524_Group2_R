@@ -15,9 +15,9 @@ fit_and_report(X, y, Xv, yv, method, m_type = "regression")
 
 \item{yv}{The target of the validation set}
 
-\item{m_type}{The type for calculating error (default = 'regression')}
+\item{method}{A machine learning model, can either be classification or regression}
 
-\item{model}{A machine learning model, can either be classification or regression}
+\item{m_type}{The type for calculating error (default = 'regression')}
 }
 \value{
 an array of train and validation error

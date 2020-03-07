@@ -185,11 +185,11 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 
 #' Fit and report
 #'
-#' @param model A machine learning model, can either be classification or regression
 #' @param X The features of the training set
 #' @param y The target of the training set
 #' @param Xv The feature of the validation set
 #' @param yv The target of the validation set
+#' @param method A machine learning model, can either be classification or regression
 #' @param m_type The type for calculating error (default = 'regression')
 #'
 #' @return an array of train and validation error
