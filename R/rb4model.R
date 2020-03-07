@@ -60,10 +60,24 @@ missing_val <- function(df, method) {
 #' ([categorical:],[numerical: ])
 #'
 #' @export
-feature_splitter<-function(x){
-  #TODO
+feature_splitter<-function(data){
+    # Checking if input data of the format of data frame
+    if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
 
+    #Analysis data types of features in the data frame
+    d_types <- sapply(data, class)
+
+    #Extracting categorical features from the data
+    categorical <- c(names(d_types[d_types == 'factor']))
+
+    # Extracting numerical features from the data
+    numerical <- c(names(d_types[d_types != 'factor']))
+    
+    if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
+    
+    return (list(categorical,numerical))
 }
+
 
 
 #' Fit and report
