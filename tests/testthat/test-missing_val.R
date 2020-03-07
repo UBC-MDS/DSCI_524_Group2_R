@@ -34,3 +34,5 @@ test_missing_val <- function() {
   })
 
 }
+
+test_missing_val()

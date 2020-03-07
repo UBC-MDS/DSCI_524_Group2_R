@@ -36,3 +36,5 @@ test_fit_and_report <- function(){
   })
   
 }
+
+test_fit_and_report()

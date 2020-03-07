@@ -27,3 +27,4 @@ test_ForwardSelection<- function(){
   })
 }
 
+test_ForwardSelection()
