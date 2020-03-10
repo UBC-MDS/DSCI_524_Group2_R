@@ -197,6 +197,13 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #' @description: fits a model and returns the train and validation errors as a list
 #'
 #' @examples
+#' data <- data(PimaIndiansDiabetes)
+#' dataset <- PimaIndiansDiabetes
+#' x <- dataset[1:8][1:600,]
+#' y <- dataset$diabetes[1:600]
+#' xv <- dataset[1:8][600:786,]
+#' yv <- dataset$diabetes[600:786]
+#' result_c <- fit_and_report(x,y,xv,yv,'glm','classification')
 #'
 #' @export
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
