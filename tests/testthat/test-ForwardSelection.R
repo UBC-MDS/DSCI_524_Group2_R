@@ -2,7 +2,8 @@
 #'
 #' assert that length of selected features is smaller than total number of features
 #' assert that selected features performs better than model with all features
-#' 
+#'
+#' @export
 test_ForwardSelection<- function(){
 
   # Setting
