@@ -218,15 +218,15 @@ fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
   if (startsWith(tolower(m_type), 'regress')){
     metric <- 'RMSE'
     model <- caret::train(X, y, method=method, metric=metric)
-    testPred <- predict(model, Xv)
-    test_acc <- postResample(testPred, yv)
+    testPred <- stats::predict(model, Xv)
+    test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
   }
   if (startsWith(tolower(m_type), 'classif')){
     metric <-'Accuracy'
     model<- caret::train(X, y, method=method, metric=metric)
-    testPred <- predict(model, Xv)
-    test_acc <- postResample(testPred, yv)
+    testPred <- stats::predict(model, Xv)
+    test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$Accuracy, 1 -test_acc[1])
   }
   return(errors)

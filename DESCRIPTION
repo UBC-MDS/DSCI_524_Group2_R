@@ -25,7 +25,6 @@ Suggests:
 Imports: 
     mice,
     stats,
-    testthat,
     caret,
     datasets,
     mlbench,
