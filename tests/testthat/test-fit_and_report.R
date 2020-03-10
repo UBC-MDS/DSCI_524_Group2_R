@@ -3,6 +3,10 @@ require(datasets)
 require(mlbench)
 require(caret)
 
+#' Test fit_and_report testing whether the output length is correct, 
+#' whether output is in correct range and if error is raised successfully
+#'
+#' @export
 test_fit_and_report <- function(){
   data <- data(PimaIndiansDiabetes)
   dataset <- PimaIndiansDiabetes

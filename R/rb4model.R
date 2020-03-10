@@ -197,6 +197,11 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #' @description: fits a model and returns the train and validation errors as a list
 #'
 #' @examples
+#' x1<- iris[1:2][1:100,]
+#' x2<-iris[1:2][100:150,]
+#' y1<- iris$Petal.Length[1:100]
+#' y2<-iris$Petal.Length[100:150]
+#' result_r <- fit_and_report(x1,y1,x2,y2,'glm','regression')
 #'
 #' @export
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
@@ -212,14 +217,14 @@ fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
 
   if (startsWith(tolower(m_type), 'regress')){
     metric <- 'RMSE'
-    model <- train(X, y, method=method, metric=metric)
+    model <- caret::train(X, y, method=method, metric=metric)
     testPred <- predict(model, Xv)
     test_acc <- postResample(testPred, yv)
     errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
   }
   if (startsWith(tolower(m_type), 'classif')){
     metric <-'Accuracy'
-    model<- train(X, y, method=method, metric=metric)
+    model<- caret::train(X, y, method=method, metric=metric)
     testPred <- predict(model, Xv)
     test_acc <- postResample(testPred, yv)
     errors <- c(1 - model$results$Accuracy, 1 -test_acc[1])
