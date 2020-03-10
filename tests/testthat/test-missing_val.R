@@ -1,3 +1,8 @@
+#' Test missing_val function
+#'
+#' check for proper inputs and outputs, throw error otherwise
+#'
+#' @export
 test_missing_val <- function() {
 
   test_that('regression imputation should replace missing value with fitted value', {
