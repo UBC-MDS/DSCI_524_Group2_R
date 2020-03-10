@@ -29,5 +29,4 @@ Imports:
     caret,
     datasets,
     mlbench,
-    caret,
     randomForest
