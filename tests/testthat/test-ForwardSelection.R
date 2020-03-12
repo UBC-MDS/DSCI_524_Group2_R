@@ -19,7 +19,31 @@ test_ForwardSelection<- function(){
   control_score <- as.double(control_model$results["RMSE"])
 
   # Test
-
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="modelabc", feature=x, label=y, type="regression", cv=5), "your model should be supported by caret")
+  })
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="lm", feature=3, label=y, type="regression", cv=5), "invalid argument type")
+  })
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="lm", feature=x, label=y, type="regression", cv="d"), "invalid argument type")
+  })
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="lm", feature=x, label=y, type="hi", cv=5), "problem should be 'regression' or 'classification'")
+  })
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="lm", feature=x, label=y, min_f="1", type="regression", cv=5), "invalid argument type")
+  })
+  
+  test_that('should throw error', {
+    expect_error(ForwardSelection(my_mod="lm", feature=x, label=y, max_f="4", type="regression", cv=5), "invalid argument type")
+  })
+  
   test_that('length of selected features should not be greater than the total number of features', {
     expect_less_than(length(selected), length(x))
   })
