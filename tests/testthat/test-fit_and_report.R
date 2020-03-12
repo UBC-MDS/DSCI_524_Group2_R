@@ -36,7 +36,9 @@ test_fit_and_report <- function(){
   })
   
   test_that("Error raising failed", {
-    expect_error(fit_and_report(x,y,xv,yv,1), "Model 1 is not in caret's built-in library")
+    expect_error(fit_and_report(x,y,xv,yv,'glm',1), "The m_type argument should be either regression or classificaition")
+    expect_error(fit_and_report(x,y1,xv,yv,'glm','regression'), "The length of X and y should be the same")
+    expect_error(fit_and_report(x,y,xv,y2,'glm','regression'), "The length of Xv and yv should be the same")
   })
   
 }
