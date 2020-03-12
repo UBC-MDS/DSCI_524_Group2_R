@@ -60,21 +60,21 @@ missing_val <- function(df, method) {
 #'
 #' @export
 feature_splitter<-function(data){
-    # Checking if input data of the format of data frame
-    if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
+  # Checking if input data of the format of data frame
+  if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
 
-    #Analysis data types of features in the data frame
-    d_types <- sapply(data, class)
+  #Analysis data types of features in the data frame
+  d_types <- sapply(data, class)
 
-    #Extracting categorical features from the data
-    categorical <- c(names(d_types[d_types == 'factor']))
+  #Extracting categorical features from the data
+  categorical <- c(names(d_types[d_types == 'factor']))
 
-    # Extracting numerical features from the data
-    numerical <- c(names(d_types[d_types != 'factor']))
+  # Extracting numerical features from the data
+  numerical <- c(names(d_types[d_types != 'factor']))
 
-    if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
+  if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
 
-    return (list(categorical,numerical))
+  return (list(categorical,numerical))
 }
 
 
@@ -133,9 +133,9 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
   }
   # define the problem & set the metric/scoring method
   if(type == "regression"){
-  metric = "RMSE"
+    metric = "RMSE"
   } else {
-  metric = "Accuracy"
+    metric = "Accuracy"
   }
 
   # create empty vector
@@ -181,8 +181,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 
 
 
-
-
 #' Fit and report
 #'
 #' @param X The features of the training set
@@ -205,14 +203,16 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #'
 #' @export
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
-  try(if (class(m_type) !='character')
-    stop('The m_type argument should be either regression or classificaition'))
+  if(dim(X)[1] != length(y)){
+    stop('The length of X and y should be the same')}
+  
+  if (class(m_type) !='character'){
+    stop('The m_type argument should be either regression or classificaition')}
 
-  try(if(dim(X)[1] != length(y))
-    stop('The length of X and y should be the same'))
+  
 
-  try(if(dim(Xv)[1]!= length(yv))
-    stop('The length of Xv and yv should be the same'))
+  if(dim(Xv)[1]!= length(yv)){
+    stop('The length of Xv and yv should be the same')}
 
 
   if (startsWith(tolower(m_type), 'regress')){
