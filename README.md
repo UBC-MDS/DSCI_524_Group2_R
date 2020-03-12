@@ -3,6 +3,8 @@
 
 # rb4model R Package
 
+![CI](https://github.com/UBC-MDS/rb4model/workflows/CI/badge.svg)
+
 ## Summary
 
 This project aims to build an R package that elegantly
