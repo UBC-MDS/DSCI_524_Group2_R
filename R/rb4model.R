@@ -215,14 +215,14 @@ fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
     stop('The length of Xv and yv should be the same')}
 
 
-  if (gdata::startsWith(tolower(m_type), 'regress')){
+  if (m_type=='regression'){
     metric <- 'RMSE'
     model <- caret::train(X, y, method=method, metric=metric)
     testPred <- stats::predict(model, Xv)
     test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
   }
-  if (gdata::startsWith(tolower(m_type), 'classif')){
+  if (m_type=='classification'){
     metric <-'Accuracy'
     model<- caret::train(X, y, method=method, metric=metric)
     testPred <- stats::predict(model, Xv)
