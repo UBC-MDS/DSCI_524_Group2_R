@@ -22,7 +22,9 @@ LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0),
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Imports: 
     mice,
     stats,
@@ -33,3 +35,4 @@ Imports:
     e1071
 URL: https://github.com/UBC-MDS/rb4model
 BugReports: https://github.com/UBC-MDS/rb4model/issues
+VignetteBuilder: knitr
