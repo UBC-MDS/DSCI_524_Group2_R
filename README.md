@@ -4,6 +4,9 @@
 # rb4model R Package
 
 ![CI](https://github.com/UBC-MDS/rb4model/workflows/CI/badge.svg)
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/UBC-MDS/rb4model/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rb4model?branch=master)
+<!-- badges: end -->
 
 ## Summary
 
