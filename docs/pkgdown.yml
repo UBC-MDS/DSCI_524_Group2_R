@@ -1,7 +1,0 @@
-pandoc: 2.3.1
-pkgdown: 1.4.1.9000
-pkgdown_sha: 17d069073e39a73cf09b54eb756a83d55f8fa96b
-articles:
-  my-vignette: my-vignette.html
-last_built: 2020-03-13T20:11Z
-
