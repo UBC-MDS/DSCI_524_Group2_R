@@ -1,0 +1,74 @@
+---
+title: "Introduction to rb4model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rb4model)
+```
+
+This package aims to build an R package that elegantly performs data pre-processing in a fast and easy manner. With four separate functions that will come along with the rb4model package, users will have greater flexibility in handling many different types of datasets in the wild or those collected by them. With the rb4model package, users will be able to smoothly pre-process their data and have it ready for the machine learning model of their choice.
+
+## Handle Missing Values
+
+- This function will take in a dataframe and handle any missing values by either deleting the row, filling in the value with the average, or filling in the value with the last observation (the user will specify which method to use in the function argument).
+- This function will return a dataframe without missing values.
+
+Here, we will replace missing values in the airquality dataset with the mean.
+
+```{r}
+head(airquality)
+head(missing_val(airquality, 'mean'))
+```
+
+## Feature Spliter
+
+- This function will take in a dataframe and split the data into numerical and categorical features.
+- This function will return two lists, one list containing the names of the numerical features and one list containing the names of the categorical features.
+
+Here, we will split the mtcars dataset into numerical and categorical featrues.
+
+```{r}
+feature_splitter(mtcars)
+```
+
+## Fit and Report
+
+- This function will take in data, fit a model, and calculate its training and validation scores.
+- This function will return the model's training and validation scores.
+
+Here we will fit the iris dataset to a general linear model and return its root mean squared error.
+
+```{r}
+x1<- iris[1:2][1:100,]
+x2<-iris[1:2][100:150,]
+y1<- iris$Petal.Length[1:100]
+y2<-iris$Petal.Length[100:150]
+fit_and_report(x1,y1,x2,y2,'glm','regression')
+```
+
+## Forward Feature Selection
+
+- This function will take in data, fit a model, and perform forward feature selection.
+- This function will return a dataframe with only the selected features.
+
+Here, we will perform forward feature selection on the iris dataset.
+
+```{r, warning=FALSE, message=FALSE}
+y <- iris$Species
+x <- iris[c(1,2,3,4)]
+ffs <- ForwardSelection(feature=x, label=y, my_mod="rf")
+head(x[ffs])
+```
+
