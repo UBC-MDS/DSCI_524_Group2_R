@@ -3,6 +3,8 @@
 
 # rb4model R Package
 
+![CI](https://github.com/UBC-MDS/rb4model/workflows/CI/badge.svg)
+
 ## Summary
 
 This project aims to build an R package that elegantly
@@ -31,6 +33,17 @@ for the machine learning model of their choice.
 - This function will take in data, fit a model, and perform forward feature selection.
 - This function will return a dataframe with only the selected features.
 
+## Dependencies
+|Package|Version|
+|-------|-------|
+|mice|3.7.0|
+|stats|4.0.0|
+|testthat|2.1.0|
+|caret|6.0-85|
+|datasets|4.0.0|
+|mlbench|2.1-1|
+|randomForest|4.6-14|
+    
 ## R Ecosystem
 
 `caret` is probably the most widely used package for supervised learning problems in R. Although the library provides various model fitting and preprocessing features, programmers end up with writing the same line of code over and over again. Our `rb4model` library provides a simple solution to this pain point: wrapper functions of `caret` and other primary libraries used for supervised learning to reduce lines of code and promote efficiency.

@@ -60,21 +60,21 @@ missing_val <- function(df, method) {
 #'
 #' @export
 feature_splitter<-function(data){
-    # Checking if input data of the format of data frame
-    if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
+  # Checking if input data of the format of data frame
+  if(class(data) != 'data.frame') stop("Warning: The input data MUST be of data frame format ")
 
-    #Analysis data types of features in the data frame
-    d_types <- sapply(data, class)
+  #Analysis data types of features in the data frame
+  d_types <- sapply(data, class)
 
-    #Extracting categorical features from the data
-    categorical <- c(names(d_types[d_types == 'factor']))
+  #Extracting categorical features from the data
+  categorical <- c(names(d_types[d_types == 'factor']))
 
-    # Extracting numerical features from the data
-    numerical <- c(names(d_types[d_types != 'factor']))
+  # Extracting numerical features from the data
+  numerical <- c(names(d_types[d_types != 'factor']))
 
-    if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
+  if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
 
-    return (list(categorical,numerical))
+  return (list(categorical,numerical))
 }
 
 
@@ -133,9 +133,9 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
   }
   # define the problem & set the metric/scoring method
   if(type == "regression"){
-  metric = "RMSE"
+    metric = "RMSE"
   } else {
-  metric = "Accuracy"
+    metric = "Accuracy"
   }
 
   # create empty vector
@@ -181,15 +181,13 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 
 
 
-
-
 #' Fit and report
 #'
-#' @param model A machine learning model, can either be classification or regression
 #' @param X The features of the training set
 #' @param y The target of the training set
 #' @param Xv The feature of the validation set
 #' @param yv The target of the validation set
+#' @param method A machine learning model, can either be classification or regression
 #' @param m_type The type for calculating error (default = 'regression')
 #'
 #' @return an array of train and validation error
@@ -197,31 +195,38 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #' @description: fits a model and returns the train and validation errors as a list
 #'
 #' @examples
+#' x1<- iris[1:2][1:100,]
+#' x2<-iris[1:2][100:150,]
+#' y1<- iris$Petal.Length[1:100]
+#' y2<-iris$Petal.Length[100:150]
+#' result_r <- fit_and_report(x1,y1,x2,y2,'glm','regression')
 #'
 #' @export
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
-  try(if (class(m_type) !='character')
-    stop('The m_type argument should be either regression or classificaition'))
+  if(dim(X)[1] != length(y)){
+    stop('The length of X and y should be the same')}
+  
+  if (class(m_type) !='character'){
+    stop('The m_type argument should be either regression or classificaition')}
 
-  try(if(dim(X)[1] != length(y))
-    stop('The length of X and y should be the same'))
+  
 
-  try(if(dim(Xv)[1]!= length(yv))
-    stop('The length of Xv and yv should be the same'))
+  if(dim(Xv)[1]!= length(yv)){
+    stop('The length of Xv and yv should be the same')}
 
 
   if (startsWith(tolower(m_type), 'regress')){
     metric <- 'RMSE'
-    model <- train(X, y, method=method, metric=metric)
-    testPred <- predict(model, Xv)
-    test_acc <- postResample(testPred, yv)
+    model <- caret::train(X, y, method=method, metric=metric)
+    testPred <- stats::predict(model, Xv)
+    test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
   }
   if (startsWith(tolower(m_type), 'classif')){
     metric <-'Accuracy'
-    model<- train(X, y, method=method, metric=metric)
-    testPred <- predict(model, Xv)
-    test_acc <- postResample(testPred, yv)
+    model<- caret::train(X, y, method=method, metric=metric)
+    testPred <- stats::predict(model, Xv)
+    test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$Accuracy, 1 -test_acc[1])
   }
   return(errors)

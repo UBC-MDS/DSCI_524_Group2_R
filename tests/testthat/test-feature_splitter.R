@@ -1,5 +1,11 @@
 require(testthat)
 
+#' Test for feature_splitter_function to split a data frame into two components by features
+#' The output being a tupple containing two list of categegorical features and numerical features
+#' Errors & exceptions will be raised if tests do not pass
+#'
+#' @export
+
 test_feature_splitter <- function() {
   Name <- c('John', 'Micheal', 'Lindsey', 'Adam')
   Age<-c(40, 22, 39, 15)

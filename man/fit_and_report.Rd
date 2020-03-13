@@ -15,9 +15,9 @@ fit_and_report(X, y, Xv, yv, method, m_type = "regression")
 
 \item{yv}{The target of the validation set}
 
-\item{m_type}{The type for calculating error (default = 'regression')}
+\item{method}{A machine learning model, can either be classification or regression}
 
-\item{model}{A machine learning model, can either be classification or regression}
+\item{m_type}{The type for calculating error (default = 'regression')}
 }
 \value{
 an array of train and validation error
@@ -26,5 +26,10 @@ an array of train and validation error
 : fits a model and returns the train and validation errors as a list
 }
 \examples{
+x1<- iris[1:2][1:100,]
+x2<-iris[1:2][100:150,]
+y1<- iris$Petal.Length[1:100]
+y2<-iris$Petal.Length[100:150]
+result_r <- fit_and_report(x1,y1,x2,y2,'glm','regression')
 
 }
