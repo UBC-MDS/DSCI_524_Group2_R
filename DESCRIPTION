@@ -30,6 +30,7 @@ Imports:
     datasets,
     mlbench,
     randomForest,
-    e1071
+    e1071,
+    gdata
 URL: https://github.com/UBC-MDS/rb4model
 BugReports: https://github.com/UBC-MDS/rb4model/issues

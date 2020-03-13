@@ -205,24 +205,24 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 fit_and_report <- function(X, y, Xv, yv, method, m_type = 'regression'){
   if(dim(X)[1] != length(y)){
     stop('The length of X and y should be the same')}
-  
+
   if (class(m_type) !='character'){
     stop('The m_type argument should be either regression or classificaition')}
 
-  
+
 
   if(dim(Xv)[1]!= length(yv)){
     stop('The length of Xv and yv should be the same')}
 
 
-  if (startsWith(tolower(m_type), 'regress')){
+  if (gdata::startsWith(tolower(m_type), 'regress')){
     metric <- 'RMSE'
     model <- caret::train(X, y, method=method, metric=metric)
     testPred <- stats::predict(model, Xv)
     test_acc <- caret::postResample(testPred, yv)
     errors <- c(1 - model$results$RMSE, 1 - test_acc[1] )
   }
-  if (startsWith(tolower(m_type), 'classif')){
+  if (gdata::startsWith(tolower(m_type), 'classif')){
     metric <-'Accuracy'
     model<- caret::train(X, y, method=method, metric=metric)
     testPred <- stats::predict(model, Xv)
