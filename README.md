@@ -30,22 +30,26 @@ It is recommended that `rb4model` be installed via `devtools`.
 
 ## Functions
 
-`missing_val` - This function will take in a dataframe and handle any
+`missing_val` 
+- This function will take in a dataframe and handle any
 missing values by either deleting the row, filling in the value with the
 average, or filling in the value with the last observation (the user
 will specify which method to use in the function argument). - This
 function will return a dataframe without missing values.
 
-`feature_splitter` - This function will take in a dataframe and split
+`feature_splitter` 
+- This function will take in a dataframe and split
 the data into numerical and categorical features. - This function will
 return two lists, one list containing the names of the numerical
 features and one list containing the names of the categorical features.
 
-`fit_and_report` - This function will take in data, fit a model, and
+`fit_and_report` 
+- This function will take in data, fit a model, and
 calculate its training and validation scores. - This function will
 return the model’s training and validation scores.
 
-`ForwardSelection` - This function will take in data, fit a model, and
+`ForwardSelection` 
+- This function will take in data, fit a model, and
 perform forward feature selection. - This function will return a
 dataframe with only the selected features.
 
