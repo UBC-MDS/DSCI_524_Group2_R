@@ -22,6 +22,14 @@ datasets in the wild or those collected by them. With the rb4model package,
 users will be able to smoothly pre-process their data and have it ready
 for the machine learning model of their choice.
 
+## Installation
+
+It is recommended that `rb4model` be installed via `devtools`.
+
+```
+devtools::install_github("UBC-MDS/rb4model")
+```
+
 ## Functions
 
 `missing_val`
@@ -40,7 +48,17 @@ for the machine learning model of their choice.
 - This function will take in data, fit a model, and perform forward feature selection.
 - This function will return a dataframe with only the selected features.
 
+## Usage
+
+This is a basic example which shows you how to solve a common machine learning problem (missing values in data):
+
+```{r}
+library(rb4model)
+head(missing_val(df=airquality, method='mean'))
+```
+
 ## Dependencies
+
 |Package|Version|
 |-------|-------|
 |mice|3.7.0|
@@ -50,6 +68,7 @@ for the machine learning model of their choice.
 |datasets|4.0.0|
 |mlbench|2.1-1|
 |randomForest|4.6-14|
+|e1071|1.7-3|
     
 ## R Ecosystem
 

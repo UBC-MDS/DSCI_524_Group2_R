@@ -22,6 +22,12 @@ those collected by them. With the rb4model package, users will be able
 to smoothly pre-process their data and have it ready for the machine
 learning model of their choice.
 
+## Installation
+
+It is recommended that `rb4model` be installed via `devtools`.
+
+    devtools::install_github("UBC-MDS/rb4model")
+
 ## Functions
 
 `missing_val` - This function will take in a dataframe and handle any
@@ -43,6 +49,24 @@ return the model’s training and validation scores.
 perform forward feature selection. - This function will return a
 dataframe with only the selected features.
 
+## Usage
+
+This is a basic example which shows you how to solve a common machine
+learning problem (missing values in data):
+
+``` r
+library(rb4model)
+head(missing_val(df=airquality, method='mean'))
+```
+
+    ##      Ozone  Solar.R Wind Temp Month Day
+    ## 1 41.00000 190.0000  7.4   67     5   1
+    ## 2 36.00000 118.0000  8.0   72     5   2
+    ## 3 12.00000 149.0000 12.6   74     5   3
+    ## 4 18.00000 313.0000 11.5   62     5   4
+    ## 5 42.12931 185.9315 14.3   56     5   5
+    ## 6 28.00000 185.9315 14.9   66     5   6
+
 ## Dependencies
 
 | Package      | Version |
@@ -54,6 +78,7 @@ dataframe with only the selected features.
 | datasets     | 4.0.0   |
 | mlbench      | 2.1-1   |
 | randomForest | 4.6-14  |
+| e1071        | 1.7-3   |
 
 ## R Ecosystem
 
