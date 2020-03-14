@@ -87,13 +87,53 @@
 <a href="#summary" class="anchor"></a>Summary</h2>
 <p>This project aims to build an R package that elegantly performs data pre-processing in a fast and easy manner. With four separate functions that will come along with the rb4model package, users will have greater flexibility in handling many different types of datasets in the wild or those collected by them. With the rb4model package, users will be able to smoothly pre-process their data and have it ready for the machine learning model of their choice.</p>
 </div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>It is recommended that <code>rb4model</code> be installed via <code>devtools</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"UBC-MDS/rb4model"</span>)</a></code></pre></div>
+</div>
 <div id="functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h2>
-<p><code>missing_val</code> - This function will take in a dataframe and handle any missing values by either deleting the row, filling in the value with the average, or filling in the value with the last observation (the user will specify which method to use in the function argument). - This function will return a dataframe without missing values.</p>
-<p><code>feature_splitter</code> - This function will take in a dataframe and split the data into numerical and categorical features. - This function will return two lists, one list containing the names of the numerical features and one list containing the names of the categorical features.</p>
-<p><code>fit_and_report</code> - This function will take in data, fit a model, and calculate its training and validation scores. - This function will return the model’s training and validation scores.</p>
-<p><code>ForwardSelection</code> - This function will take in data, fit a model, and perform forward feature selection. - This function will return a dataframe with only the selected features.</p>
+<p><code>missing_val</code></p>
+<ul>
+<li>This function will take in a dataframe and handle any missing values by either deleting the row, filling in the value with the average, or filling in the value with the last observation (the user will specify which method to use in the function argument). - This function will return a dataframe without missing values.</li>
+</ul>
+<p><code>feature_splitter</code></p>
+<ul>
+<li>This function will take in a dataframe and split the data into numerical and categorical features. - This function will return two lists, one list containing the names of the numerical features and one list containing the names of the categorical features.</li>
+</ul>
+<p><code>fit_and_report</code></p>
+<ul>
+<li>This function will take in data, fit a model, and calculate its training and validation scores. - This function will return the model’s training and validation scores.</li>
+</ul>
+<p><code>ForwardSelection</code></p>
+<ul>
+<li>This function will take in data, fit a model, and perform forward feature selection. - This function will return a dataframe with only the selected features.</li>
+</ul>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>This is a basic example which shows you how to solve a common machine learning problem (missing values in data):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rb4model)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(airquality)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">##   Ozone Solar.R Wind Temp Month Day</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## 1    41     190  7.4   67     5   1</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## 2    36     118  8.0   72     5   2</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## 3    12     149 12.6   74     5   3</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## 4    18     313 11.5   62     5   4</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## 5    NA      NA 14.3   56     5   5</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">## 6    28      NA 14.9   66     5   6</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="reference/missing_val.html">missing_val</a></span>(<span class="dt">df=</span>airquality, <span class="dt">method=</span><span class="st">'mean'</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">##      Ozone  Solar.R Wind Temp Month Day</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">## 1 41.00000 190.0000  7.4   67     5   1</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">## 2 36.00000 118.0000  8.0   72     5   2</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">## 3 12.00000 149.0000 12.6   74     5   3</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">## 4 18.00000 313.0000 11.5   62     5   4</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">## 5 42.12931 185.9315 14.3   56     5   5</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">## 6 28.00000 185.9315 14.9   66     5   6</span></a></code></pre></div>
 </div>
 <div id="dependencies" class="section level2">
 <h2 class="hasAnchor">
@@ -131,6 +171,10 @@
 <tr class="odd">
 <td>randomForest</td>
 <td>4.6-14</td>
+</tr>
+<tr class="even">
+<td>e1071</td>
+<td>1.7-3</td>
 </tr>
 </tbody>
 </table>
