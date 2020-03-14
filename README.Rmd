@@ -29,7 +29,7 @@ It is recommended that `rb4model` be installed via `devtools`.
 ```
 devtools::install_github("UBC-MDS/rb4model")
 ```
-
+  
 ## Functions
 
 `missing_val`
@@ -54,6 +54,7 @@ This is a basic example which shows you how to solve a common machine learning p
 
 ```{r}
 library(rb4model)
+head(airquality)
 head(missing_val(df=airquality, method='mean'))
 ```
 
