@@ -87,14 +87,14 @@ head(missing_val(df=airquality, method='mean'))
 
 | Package      | Version |
 | ------------ | ------- |
-| mice         | 3.7.0   |
-| stats        | 4.0.0   |
-| testthat     | 2.1.0   |
-| caret        | 6.0-85  |
-| datasets     | 4.0.0   |
-| mlbench      | 2.1-1   |
-| randomForest | 4.6-14  |
-| e1071        | 1.7-3   |
+| [mice](https://cran.r-project.org/web/packages/mice/index.html)         | 3.7.0   |
+| [stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html)        | 4.0.0   |
+| [testthat](https://cran.r-project.org/web/packages/testthat/index.html)     | 2.1.0   |
+| [caret](https://cran.r-project.org/web/packages/caret/index.html)        | 6.0-85  |
+| [datasets](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)     | 4.0.0   |
+| [mlbench](https://cran.r-project.org/web/packages/mlbench/index.html)      | 2.1-1   |
+| [randomForest](https://cran.r-project.org/web/packages/randomForest/index.html) | 4.6-14  |
+| [e1071](https://cran.r-project.org/web/packages/e1071/index.html)        | 1.7-3   |
 
 ## R Ecosystem
 
