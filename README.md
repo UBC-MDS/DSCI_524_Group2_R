@@ -105,3 +105,7 @@ code over and over again. Our `rb4model` library provides a simple
 solution to this pain point: wrapper functions of `caret` and other
 primary libraries used for supervised learning to reduce lines of code
 and promote efficiency.
+
+## Documentation
+
+The vignette is hosted [here](https://ubc-mds.github.io/rb4model/articles/my-vignette.html).
