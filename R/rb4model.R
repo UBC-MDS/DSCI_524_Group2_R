@@ -183,6 +183,7 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 
 #' Fit and report
 #'
+#' Fits a model and returns the train and validation errors as a list
 #' @param X The features of the training set
 #' @param y The target of the training set
 #' @param Xv The feature of the validation set
@@ -191,8 +192,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
 #' @param m_type The type for calculating error (default = 'regression')
 #'
 #' @return an array of train and validation error
-#'
-#' @description: fits a model and returns the train and validation errors as a list
 #'
 #' @examples
 #' x1<- iris[1:2][1:100,]
