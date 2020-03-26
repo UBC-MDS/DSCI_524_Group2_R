@@ -67,14 +67,20 @@ feature_splitter<-function(data){
   d_types <- sapply(data, class)
 
   #Extracting categorical features from the data
-  categorical <- c(names(d_types[d_types == 'factor']))
+    categorical <- list(c(names(d_types[d_types == 'factor'])))
+    categorical <- data.frame(Reduce(cbind, categorical))
+    colnames(categorical) <- c("Categorical")
 
   # Extracting numerical features from the data
-  numerical <- c(names(d_types[d_types != 'factor']))
+    numerical <- list(c(names(d_types[d_types != 'factor'])))
+    numerical <- data.frame(Reduce(cbind, numerical))
+    colnames(numerical) <- c("Numerical")
+
+    result <- plyr::rbind.fill(numerical[c("Numerical")], categorical[c("Categorical")])
 
   if(length((list(categorical,numerical))) != 2) stop("The output MUST be a list of length 2 ")
 
-  return (list(categorical,numerical))
+  return (result)
 }
 
 

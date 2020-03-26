@@ -16,10 +16,10 @@ test_feature_splitter <- function() {
 
   data <-data.frame(Name, Age, Height, Anual_Salary,Nationality, Marital_Status)
 
-  test_that("Result of function MUST be two list", {
+  test_that("Result of function MUST be a dataframe of two columns", {
     expect_equal(length(feature_splitter(data)), 2)})
   test_that("Test that total number of categorical and numerical features is same as column names in the data frame",{
-    expect_equal(sort(unlist(feature_splitter(data))),sort(colnames(data)))})
+    expect_equal(nrow(feature_splitter(data)),length(sort(colnames(data))))})
 }
 
 test_feature_splitter()
