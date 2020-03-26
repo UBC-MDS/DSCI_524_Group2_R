@@ -102,7 +102,7 @@ feature_splitter<-function(data){
 #' print(x[ffs])
 #'
 #' @export
-ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="classification", cv=3){
+ForwardSelection <- function(my_mod, feature, label, max_f=NA, type="classification", cv=3){
 
   # define maximum amount of features
   if(is.na(max_f)){
@@ -110,9 +110,6 @@ ForwardSelection <- function(my_mod, feature, label, min_f=1, max_f=NA, type="cl
   }
 
   # test
-  if(!all.equal(min_f, as.integer(min_f))){
-    stop("minimum number of features should be an integer")
-  }
   if(!all.equal(max_f, as.integer(max_f))){
     stop("maximum number of features should be an integer")
   }
