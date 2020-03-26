@@ -88,7 +88,6 @@ feature_splitter<-function(data){
 #' @param my_mod model name in string (must be in caret::modelLookup())
 #' @param feature training dataset with features
 #' @param label training dataset with labels.
-#' @param min_f minimum amount of features to select
 #' @param max_f maximum amount of features to select
 #' @param type problem type. (Must be 'regression' or 'classification')
 #' @param cv number of folds for cross validation
