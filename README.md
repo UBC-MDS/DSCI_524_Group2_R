@@ -129,7 +129,7 @@ fit_and_report(x1,y1,x2,y2,'glm','regression')
     ## Loading required package: ggplot2
 
     ##                  RMSE 
-    ## 0.42830939 0.08478573
+    ## 0.44201045 0.08478573
 
 Use the `ForwardSelection` function to perform forward feature selection
 on your data. Then subset your original dataframe with the selected
@@ -171,6 +171,7 @@ head(x[ffs])
 | [mlbench](https://cran.r-project.org/web/packages/mlbench/index.html)                | 2.1-1   |
 | [randomForest](https://cran.r-project.org/web/packages/randomForest/index.html)      | 4.6-14  |
 | [e1071](https://cran.r-project.org/web/packages/e1071/index.html)                    | 1.7-3   |
+| [plyr](https://cran.r-project.org/web/packages/plyr/index.html)                      | 1.8.6   |
 
 ## R Ecosystem
 
