@@ -9,7 +9,6 @@ ForwardSelection(
   my_mod,
   feature,
   label,
-  min_f = 1,
   max_f = NA,
   type = "classification",
   cv = 3
@@ -21,8 +20,6 @@ ForwardSelection(
 \item{feature}{training dataset with features}
 
 \item{label}{training dataset with labels.}
-
-\item{min_f}{minimum amount of features to select}
 
 \item{max_f}{maximum amount of features to select}
 
